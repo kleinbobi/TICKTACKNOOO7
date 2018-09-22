@@ -1,5 +1,5 @@
 package TickTackToStandart;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,10 +45,6 @@ public class TicTacToeServer extends TicTacToe {
                     b = a.getGegnerZug();
                 }catch (IOException e) {
                     e.printStackTrace();
-                }finally {
-                    try {
-                        a.close();
-                    }catch (IOException e){}
                 }
             }while (b!=0);
 
@@ -65,13 +61,14 @@ public class TicTacToeServer extends TicTacToe {
                 try{
                     b = a.setMeinZug(readInt("Server:"));
                 }catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    try {
-                        a.close();
-                    }catch (IOException e){}
+
                 }
             }while (b!=0);
+            //try {
+              //  a.close();
+            //}catch (IOException e){}
+
+
             if(a.getGewonnen()!=0){
                 System.out.println("Gratulation Spieler 2");
                 try {

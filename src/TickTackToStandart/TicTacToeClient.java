@@ -27,6 +27,7 @@ public class TicTacToeClient extends TicTacToe{
     public static void main(java.lang.String[] args){
         if(args[0]==null)
             System.exit(0);
+        System.out.println(args[0]+" "+args[1]);
         ipAdresse=args[0];
         PORT=Integer.parseInt(args[1]);
 
@@ -46,11 +47,11 @@ public class TicTacToeClient extends TicTacToe{
                     e.printStackTrace();
                 }finally {
                     try {
-                        a.close();
-                    }catch (IOException e){}
+                       // a.close();
+                    }catch (Exception e){}
                 }
             }while (b!=0);
-
+            b=0;
             System.out.println(a.toString());
             if(a.getGewonnen()!=0){
                 System.out.println("Gratulation Spieler 1");
@@ -59,20 +60,18 @@ public class TicTacToeClient extends TicTacToe{
                 }catch (IOException e){}
                 break;
             }
-
+            System.out.println("Spieler 1:");
             do {
-                System.out.println("Spieler 1:");
+
                 try{
                     b = a.getGegnerZug();
                 }catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    try {
-                        a.close();
-                    }catch (IOException e){}
+                    b=3;
                 }
             }while (b!=0);
-
+            try {
+                a.close();
+            }catch (IOException e){}
 
             if(a.getGewonnen()!=0){
                 System.out.println("Gratulation Spieler 2");
@@ -120,7 +119,13 @@ public class TicTacToeClient extends TicTacToe{
 
 
     public int getGegnerZug() throws IOException{
-        InputStream in = client.getInputStream();
+        InputStream in=null;
+        try {
+           in = client.getInputStream();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return setZugSpieler2(in.read());
     }
 
