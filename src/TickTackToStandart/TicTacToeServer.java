@@ -108,8 +108,9 @@ public class TicTacToeServer extends TicTacToe {
         if(i==0) {
             OutputStream out = clientSocket.getOutputStream();
             out.write(zug);
+            clientSocket.close();
         }
-        clientSocket.close();
+
         return i;
 
 
